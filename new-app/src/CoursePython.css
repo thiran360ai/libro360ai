@@ -1,0 +1,96 @@
+/* Container */
+.course-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-around;
+  background-color: #00474f;
+  color: white;
+  padding: 10px;
+}
+
+.nav-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
+/* Main content layout */
+.main-content {
+  display: flex;
+  flex-grow: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 20%;
+  background-color: #d9e1e0;
+  padding: 10px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 8px;
+  cursor: pointer;
+  color: #00474f;
+}
+
+.sidebar li.active, .sidebar li:hover {
+  background-color: #009688;
+  color: white;
+}
+
+/* Content area */
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Top buttons */
+.top-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prev-next {
+  background-color: #00474f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.prev-next:hover {
+  background-color: #00796b;
+}
+
+/* Bottom buttons */
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Content body */
+.content-body {
+  flex-grow: 1;
+  margin: 20px 0;
+  background-color:white;
+}

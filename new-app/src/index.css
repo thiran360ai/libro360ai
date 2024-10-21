@@ -1,0 +1,771 @@
+/* index.css */
+
+body {
+  background-color: #ffffff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navigation Bar Styles */
+
+.navigation-container {
+  display:flex;
+  align-items: center;
+  padding: 10px;
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+
+/* Logo Styling */
+.logo {
+  height: 60px;
+  margin-right: 20px;
+}
+
+/* Navbar Styles */
+.custom-navbar {
+  flex-grow: 1;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(15px); /* Stronger blur for more glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.custom-navbar:hover {
+  background: rgba(255, 255, 255, 0.35); /* Lighter glass effect on hover */
+}
+
+/* Brand Name Styling */
+.brand-name {
+  font-weight: bold;
+  color: #00454f;
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar Link Styles */
+.navbar-nav .nav-link {
+  color: #00454f !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-left: 15px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000000 !important;
+  transform: scale(1.05);
+}
+
+/* Dropdown Styles */
+#basic-nav-dropdown {
+  margin-left: 20px;
+}
+
+#basic-nav-dropdown .dropdown-item {
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#basic-nav-dropdown .dropdown-item:hover {
+  background-color: #00c4a7;
+  color: #fff;
+}
+
+/* Account Creation Links */
+.acc-creation .nav-link {
+  color: #00454f !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.acc-creation .nav-link:hover {
+  color: #59ff2b !important;
+  transform: scale(1.05);
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+  font-size: 1.1rem;
+  color: #00454f;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.profile-dropdown:hover {
+  color: #127584;
+}
+
+.get-started-btn {
+  background-color: #00454f; /* Custom background color */
+  color: #fff; /* Text color */
+  border-radius: 30px; /* Smaller rounded edges */
+  padding: 8px 16px; /* Reduced padding for smaller button size */
+  font-size: 14px; /* Smaller font size */
+  text-transform: uppercase; /* Uppercase text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.get-started-btn:hover {
+  background-color: #0e7d8f; /* Darken on hover */
+  color: #fff; /* Maintain white text on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.get-started-btn:active {
+  transform: scale(0.98); /* Slightly reduce size on click */
+  box-shadow: none; /* Remove shadow on click */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .custom-navbar {
+    padding: 0;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.15); /* Adjusted transparency for small screens */
+    backdrop-filter: blur(10px); /* Adjusted blur for mobile */
+  }
+
+  .brand-name {
+    font-size: 1.4rem;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .acc-creation .nav-link {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .acc-creation .nav-link {
+    font-size: 1rem;
+  }
+
+  .profile-icon {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+
+
+.banner {
+  background: linear-gradient(135deg, #001920 0%, #017a8c 100%);
+  color: white;
+  padding: 50px 20px;
+  border-radius: 0px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.banner-text {
+  animation: slideInFromLeft 1.5s ease-in-out;
+}
+
+.banner-text h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.banner-text .highlight {
+  color: #00cc66;
+}
+
+.banner-text p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.create-test-btn {
+  background-color: #00cc66;
+  color: #ffffff;
+  width: 10em;
+  height: 3em;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 8px #017a8c;
+}
+
+.create-test-btn::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+  transition: 0.5s ease;
+  display: block;
+  z-index: -1;
+}
+
+.create-test-btn:hover::before {
+  width: 10em;
+}
+
+.banner-icons {
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  margin-top: 20px;
+  animation: fadeIn 3s ease-in-out;
+}
+
+.banner-icons span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 10px;
+}
+
+/* Image Styling for Card Effect */
+.banner-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  animation: fadeInUp 1s ease-in-out;
+  flex: 1;
+  position: relative;
+}
+
+.banner-image img {
+  width: 100%;
+  max-width: 280px; /* Slightly smaller for card-like look */
+  height: auto;
+  border-radius: 10px; /* Slightly rounded corners */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Deeper shadow for a card effect */
+  transition: transform 0.3s ease-in-out;
+  margin: 10px;
+  border: 2px solid #fff; /* Border to enhance the card look */
+  transform: rotate(-2deg); /* Slight rotation for a playful card-like effect */
+}
+
+.banner-image img:hover {
+  transform: scale(1.05) rotate(0); /* Remove rotation on hover */
+}
+
+.banner-image img:nth-child(2) {
+  transform: rotate(2deg); /* Opposite rotation for the second image */
+}
+
+@media (min-width: 768px) {
+  .banner {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .banner-text {
+    text-align: left;
+  }
+
+  .banner-text h1 {
+    font-size: 3rem;
+  }
+
+  .banner-text p {
+    font-size: 1.2rem;
+  }
+
+  .banner-icons {
+    justify-content: flex-start;
+  }
+
+  .banner-icons span {
+    margin: 0 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .banner-text h1 {
+    font-size: 3.5rem;
+  }
+
+  .banner-text p {
+    font-size: 1.3rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* Container for scrolling effect */
+.logos-container {
+  overflow: hidden;
+  position: relative;
+  background: whitesmoke; /* Background color or gradient */
+  padding: 10px 0;
+  box-shadow: 0 4px 6px #017a8c; /* Optional: adds a shadow */
+}
+
+/* Flex container for logos */
+.logos {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: scroll-left 30s linear infinite;
+}
+
+/* Individual logos styling */
+.logos img {
+  height: 50px; /* Adjust height as needed */
+  margin: 0 15px; /* Space between logos */
+  transition: transform 0.3s ease; /* Optional: adds smooth zoom effect */
+}
+
+/* Zoom effect on hover */
+.logos img:hover {
+  transform: scale(1.1);
+}
+
+/* Keyframes for scrolling effect */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logos img {
+    height: 40px; /* Smaller logos for mobile */
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logos img {
+    height: 30px; /* Even smaller logos for very small screens */
+    margin: 0 5px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Container */
+.courses {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.courses h2 {
+  color: #017a8c;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Glassmorphism Effect */
+.glass-card {
+  background: linear-gradient(135deg, #001920 0%, #017a8c 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Image */
+.glass-card img {
+  max-height: 200px;
+  object-fit: contain;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card Body */
+.glass-card .card-body {
+  padding: 20px;
+  color: #fff;
+}
+
+.glass-card .card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #00ff37;
+  margin-bottom: 10px;
+}
+
+.glass-card .card-text {
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.glass-card .enroll {
+  background-color: #28a745;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.glass-card .enroll:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .glass-card {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .courses h1 {
+    font-size: 2rem;
+  }
+  
+  .glass-card .card-title {
+    font-size: 1.2rem;
+  }
+
+  .glass-card .card-text {
+    font-size: 0.9rem;
+  }
+
+  .glass-card .enroll {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+
+
+
+
+
+
+
+.resources-container {
+  background: linear-gradient(135deg, #001920 0%, #017a8c 100%);
+  border-radius: 0px;
+  padding: 20px;
+  width: 1500px;
+}
+
+.glass-view {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.glass-view:hover {
+  transform: translateY(-10px);
+}
+
+.user-profile {
+  border: 3px solid white;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-profile:hover {
+  transform: scale(1.1);
+}
+
+.resources-heading {
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.resources-subheading {
+  color: #cccccc;
+}
+
+.attract {
+  color: #ffcc00;
+}
+
+ 
+
+.call-to-action-row {
+  margin: 2rem 0;
+}
+
+.call-to-action-card,
+.call-to-action-row .card {
+  border-radius: 0;
+  border-top-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-left: 5px solid #013c4c;
+  border-right: 5px solid #013c4c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #017a8c; /* Glassmorphism effect */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+}
+
+.call-to-action-card h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  
+}
+
+.cta-list {
+  padding-left: 1.5rem;
+}
+
+.cta-list li {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.call-to-action-row .card {
+  padding: 2rem;
+}
+
+.call-to-action-row h1{
+  color: #013c4c ;
+}
+
+.call-to-action-row h2{
+  color: white;
+  text-align: left;
+}
+.call-to-action-row h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.call-to-action-row .form-group {
+  margin-bottom: 1rem;
+}
+
+.call-to-action-row .btn-primary {
+  background-color: #004b56;
+  border-color: #013c4c;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.call-to-action-row .btn-primary:hover {
+  background-color: #009eca;
+  border-color: #017a8c;
+  color: whitesmoke;
+}
+
+
+
+.footer {
+  background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Gradient background */
+  color: #ecf0f1;
+  padding: 20px 0;
+  font-size: 14px;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+
+
+
+.footer-center p {
+  text-align: center;
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px; /* Slightly larger font */
+}
+
+.footer-left, .footer-center, .footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  flex-direction: column; /* Stack items vertically */
+  text-align: center; /* Center text */
+  margin-bottom: 20px; /* Space between rows */
+}
+
+.footer-right .social-icons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%; /* Spread icons across the width */
+  max-width: 250px; /* Limit max width */
+  margin: 0 auto; /* Center icons container */
+}
+
+.footer-right .social-icons a {
+  color: #ecf0f1;
+  font-size: 18px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.footer-right .social-icons a:hover {
+  color: #ffd700; /* Gold color on hover */
+  transform: scale(1.1); /* Enlarge icon */
+}
+
+.footer h5, .footer h6 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #ffd700; /* Gold color */
+  text-align: center; /* Center headings */
+}
+
+.footer h6 {
+  font-size: 16px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #ffd700; /* Gold border */
+  padding-bottom: 10px;
+}
+
+.footer .list-unstyled {
+  text-align: left; /* Align lists to the left */
+  padding-left: 0;
+}
+
+.footer .list-unstyled li {
+  margin-bottom: 6px;
+}
+
+.footer .list-unstyled li a {
+  color: #bdc3c7;
+  transition: color 0.3s;
+}
+
+.footer .list-unstyled li a:hover {
+  color: #ffd700; /* Gold color on hover */
+  text-decoration: underline;
+}
+
+.footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-links a {
+  color: #ffd700; /* Replace with your preferred color */
+  text-decoration: none; /* Optional: Remove underline */
+}
+
+.footer-links a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+
+
+
+.text-left-content {
+  text-align: right;
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px; /* Slightly larger font */
+}

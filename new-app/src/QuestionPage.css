@@ -1,0 +1,129 @@
+/* General styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Styling the columns */
+.description-column {
+  background-color: #3c767c;
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 89vh;
+  position: relative;
+  overflow: hidden;
+  min-width: 200px; /* Minimum width */
+  max-width: 25%; /* Set a max width to prevent excessive growth */
+  flex-grow: 1; /* Allow it to grow */
+  resize: horizontal; /* Allow resizing of the description column */
+  overflow: auto;
+}
+
+.code-column {
+  background-color: #00474f;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-grow: 2; /* Allow it to grow more compared to the description column */
+  overflow: hidden;
+  min-width: 300; /* Allow the column to shrink without breaking */
+  display: flex;
+  flex-direction: column;
+}
+
+.input-output-column {
+  background-color: #3c767c;
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  min-width: 200px;
+  max-width: 400px;
+  flex-shrink: 0; /* Prevent shrinking */
+  overflow: auto;
+}
+
+/* Code editor styling */
+.monaco-editor {
+  height: 103% !important; /* Ensure the editor takes full height */
+}
+
+.code-editor {
+  background-color: #1f1f2e;
+  color: #ffffff;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  height: calc(100% - 60px); /* Adjust height to fill the column */
+  border-radius: 8px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  resize: none;
+  overflow: hidden;
+}
+
+/* Button group on the code editor header */
+.code-header {
+  margin-bottom: 10px;
+}
+
+/* Resizer for the description column */
+.resizer {
+  position: absolute;
+  width: 5px;
+  right: 0;
+  top: 0;
+  height: 100%;
+  cursor: ew-resize;
+  background-color: #00d1b2;
+  z-index: 100;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .description-column, .code-column {
+    flex: 1 1 auto;
+    max-width: 100%;
+}
+  
+  .input-output-column {
+    min-height: auto; /* Allow height to be flexible */
+  }
+}
+
+.monaco-editor {
+    background-color: #1e1e1e !important;  /* Dark background */
+    color: #d4d4d4 !important;             /* Light text */
+}
+
+.monaco-editor .view-lines {
+    background-color: #1e1e1e !important;  /* Dark background for text lines */
+    color: #d4d4d4 !important;             /* Light text for the code */
+}
+
+.monaco-editor .margin {
+    background-color: #1e1e1e !important;  /* Dark background for line numbers */
+    color: #858585 !important;             /* Lighter text for line numbers */
+}
+
+.input-output-column .form-control {
+  border: none;
+  border-radius: 5px;
+  background-color: #1e1e1e; /* Same as Monaco Editor background */
+  color: #dcdcdc; /* Text color */
+  padding: 10px;
+  font-size: 14px;
+  min-height: 150px; /* Ensures the textarea is tall enough */
+  resize: none; /* Prevents resizing */
+}
+
+.input-output-column .form-control:focus {
+  outline: none; /* Removes the default focus outline */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+.input-output-column .form-label {
+  color: #dcdcdc; /* Label color */
+  font-weight: bold; /* Bold labels */
+}

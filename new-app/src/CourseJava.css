@@ -1,0 +1,67 @@
+.course-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+  justify-content: space-between; /* This helps to push content between top and bottom */
+}
+
+.content-body {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.top-buttons,
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.prev-next {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.prev-next:hover {
+  background-color: #0056b3;
+}
+
+.bottom-buttons {
+  justify-content: space-between; /* Space between the Previous and Next buttons */
+}
+
+.bottom-buttons .prev-next:first-child {
+  justify-self: flex-start; /* Align the Previous button to the left */
+}
+
+.bottom-buttons .prev-next:last-child {
+  justify-self: flex-end; 
+}
