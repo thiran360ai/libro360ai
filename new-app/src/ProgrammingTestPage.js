@@ -44,7 +44,7 @@ const ProgrammingTestPage = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get('https://5aca-59-97-51-97.ngrok-free.app/compiler/questions/', {
+        const response = await axios.get('https://9823-59-97-51-97.ngrok-free.app/compiler/questions/', {
           headers: {
             Accept: 'application/json',
             'ngrok-skip-browser-warning': '98547',
@@ -75,7 +75,7 @@ const ProgrammingTestPage = () => {
   };
 
   const handleStart = (question) => {
-    navigate('/QuestionPage', { state: { questionId: question.id, question } });
+    navigate('/libro360/QuestionPage', { state: { questionId: question.id, question } });
   };
 
   if (loading) {

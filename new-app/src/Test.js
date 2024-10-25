@@ -15,7 +15,7 @@ const Test = () => {
             <p>
               This is a multiple choice question test. You will be presented with a series of questions, and you need to choose the correct answer from the options provided.
             </p>
-            <Button variant="primary" size="lg" onClick={() => navigate('/McqTestPage')}>
+            <Button variant="primary" size="lg" onClick={() => navigate('/libro360/McqTestPage')}>
               Start MCQ Test
             </Button>
           </div>
@@ -27,7 +27,7 @@ const Test = () => {
             <p>
               This is a programming test. You will be presented with a series of programming challenges, and you need to write the correct code to solve them.
             </p>
-            <Button variant="primary" size="lg" onClick={() => navigate('/ProgrammingTestPage')}>
+            <Button variant="primary" size="lg" onClick={() => navigate('/libro360/ProgrammingTestPage')}>
               Start Programming Test
             </Button>
           </div>

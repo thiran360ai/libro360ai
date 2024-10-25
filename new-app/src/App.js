@@ -21,8 +21,8 @@ import ProgrammingTestPage from './ProgrammingTestPage.js';
 import CourseJava from './CourseJava.js';
 import CoursePython from './CoursePython.js';
 import CourseC from './CourseC.js';
-import { faDiceSix } from '@fortawesome/free-solid-svg-icons';
 import Dashboard from './Dashboard.js';
+import Courses from './courses.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,7 +38,7 @@ function App() {
       setUsername(storedUser);
       
       // Fetch user role from the API
-      fetch(`https://5aca-59-97-51-97.ngrok-free.app/api/quiz/users/create/user/`)
+      fetch(`https://9823-59-97-51-97.ngrok-free.app/api/quiz/users/create/user/`)
         .then(response => response.json())
         .then(data => {
           const user = data.find(user => user.username === storedUser); // Assuming username is unique
@@ -63,7 +63,7 @@ function App() {
       <div className="navigation-container">
         <img src={logo} alt="Logo" className="logo" />
         <Navbar expand="lg" className="custom-navbar">
-          <Navbar.Brand href="/" className="brand-name"><b>Thiran360AI</b></Navbar.Brand>
+          <Navbar.Brand href="/" className="brand-name"><b>Libro360</b></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
@@ -72,10 +72,9 @@ function App() {
                 <NavDropdown.Item href="#">PYTHON Programming (full course)</NavDropdown.Item>
                 <NavDropdown.Item href="#">Data Structures & Algo (JAVA/PYTHON)</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="#">Bootcamp</Nav.Link>
-              <Nav.Link href="#">Techruit</Nav.Link> */}
+              <Nav.Link href="/Libro360/LoginPage">Login</Nav.Link>
+              <Nav.Link href="/Libro360/SignUp">Signup</Nav.Link> */}
             </Nav>
-            <Nav.Link as={Link} to="/Dashboard">Dashboard</Nav.Link>
 
             {isLoggedIn && (
               <Nav>
@@ -91,49 +90,49 @@ function App() {
                 <Dropdown align="end">
                   <Dropdown.Toggle variant="link" className="profile-dropdown">
                     <Image
-                      src="https://cdn-icons-png.freepik.com/256/4140/4140048.png"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4wTQySWL01Oo0Clt2jBav69Hxl5QjpNLbsQ&s"
                       roundedCircle
                       className="profile-icon"
                     />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={handleLogout}><b>Logout</b></Dropdown.Item>
+                    <Dropdown.Item href="/libro360/Dashboard"><b>Dashboard</b></Dropdown.Item>
+                    <Dropdown.Item  href="/" onClick={handleLogout}><b>Logout</b></Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               ) : (
                 <Dropdown align="end">
-                  <Dropdown.Toggle variant="link" className="profile-dropdown">
-                    <Button variant="warning" className="get-started-btn"><b>Get Started</b></Button>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="/LoginPage"><b>Login</b></Dropdown.Item>
-                    <Dropdown.Item href="/SignUp"><b>Sign Up</b></Dropdown.Item>
-                  </Dropdown.Menu>
+                    
+                    <Button href="/libro360/LoginPage" variant="warning" className="get-started-btn me-3"><b>Login</b></Button>
+                    <Button href="/libro360/SignUp" variant="warning" className="get-started-btn"><b>Sign Up</b></Button>
+                 
                 </Dropdown>
               )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-      </div>
+      </div>
+
 
       <Routes>
 
         
         
-        <Route path="/LoginPage" element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} setUserRole={setUserRole} />} />
-        <Route path="/SignUp" element={<SignUp setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} setUserRole={setUserRole} />} />
-        <Route path="/Test" element={<Test />} />
-        <Route path="/McqTestPage" element={<McqTestPage />} />
-        <Route path="/QuestionPage" element={<QuestionPage />} />
-        <Route path="/ProgrammingTestPage" element={<ProgrammingTestPage />} />
-        <Route path="/CourseJava" element={<CourseJava />} />
-        <Route path="/CoursePython" element={<CoursePython />} />
-        <Route path="/CourseC" element={<CourseC />} />
-        <Route path="/java" element={<CourseJava />} /> 
-        <Route path="/python" element={<CoursePython />} /> 
-        <Route path="/c" element={<CourseC />} /> 
-        <Route path="/Dashboard" element={<Dashboard />}/>
-        
+        <Route path="/libro360/LoginPage" element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} setUserRole={setUserRole} />} />
+        <Route path="/libro360/SignUp" element={<SignUp setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} setUserRole={setUserRole} />} />
+        <Route path="/libro360/Test" element={<Test />} />
+        <Route path="/libro360/McqTestPage" element={<McqTestPage />} />
+        <Route path="/libro360/QuestionPage" element={<QuestionPage />} />
+        <Route path="/libro360/ProgrammingTestPage" element={<ProgrammingTestPage />} />
+        <Route path="/libro360/CourseJava" element={<CourseJava />} />
+        <Route path="/libro360/CoursePython" element={<CoursePython />} />
+        <Route path="/libro360/CourseC" element={<CourseC />} />
+        <Route path="/libro360/java" element={<CourseJava />} /> 
+        <Route path="/libro360/python" element={<CoursePython />} /> 
+        <Route path="/libro360/c" element={<CourseC />} /> 
+        <Route path="/libro360/Dashboard" element={<Dashboard />}/>
+        <Route path="/libro360/courses" element={<Courses />}/>
+
 
         <Route path="/" element={
             <>
@@ -143,12 +142,12 @@ function App() {
             <Row className="align-items-center">
                 <Col md={6} className="banner-text">
                     <h1>
-                        Welcome to<span className="highlight">Thiran360AI</span> 
+                        Welcome to <span className="highlight">Libro360</span> 
                     </h1>
                     <p>
-                      <span className="highlight"><b>Thiran360AI</b></span> is your go-to platform for mastering skills through MCQ and Programming Tests. Whether you're preparing for exams or sharpening your coding expertise, we offer tests that challenge and help you grow. Get started today and level up your skills with Thiran360AI!
+                      <span className="highlight"><b>Libro360</b></span> is your go-to platform for mastering skills through MCQ and Programming Tests. Whether you're preparing for exams or sharpening your coding expertise, we offer tests that challenge and help you grow. Get started today and level up your skills with Libro360!
                     </p>
-                    <Link to="/Test">
+                    <Link to="libro360/Test">
               <Button variant="warning" className='create-test-btn'><b>Start Challenges</b></Button>
             </Link>
                     <div className="banner-icons">
@@ -180,52 +179,7 @@ function App() {
 </div>
       <br/>
       
-      <Container className="courses">
-        <h1><b>Courses Offered</b></h1>
-      <Row className="justify-content-center">
-        <Col xs={12} md={6} lg={4} className="d-flex align-items-stretch">
-          <Card className="glass-card">
-            <Card.Img variant="top" src="https://static.vecteezy.com/system/resources/previews/022/100/210/original/java-logo-transparent-free-png.png" />
-            <Card.Body>
-              <Card.Title>Java Programming: Mastering the art of Programming</Card.Title>
-              <center><Card.Text varient="left">Duration : 3 Months</Card.Text></center>
-              <center><Card.Text varient="left"> Topics : 10 chapters</Card.Text></center>
-              <Link to="/CourseJava">
-              <center><Button  className="enroll">View</Button></center>
-              </Link>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={6} lg={4} className="d-flex align-items-stretch">
-          <Card className="glass-card">
-            <Card.Img variant="top" src="https://media.licdn.com/dms/image/D5612AQHkSUwQVW4UAQ/article-cover_image-shrink_600_2000/0/1707907782041?e=2147483647&v=beta&t=bFvrpLM5SHU8v0vPcutHfUGccdtJayQSyMcmMlurwws"/>
-            <Card.Body>
-              <Card.Title varient="success">Python Essentials: Mastering the art of Programming</Card.Title>
-              <Card.Text varient="left">Duration : 3 Months</Card.Text>
-              <Card.Text varient="left"> Topics : 10 chapters</Card.Text>
-              <Link to="/CoursePython">
-              <center><Button  className="enroll">View</Button></center>
-              </Link>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} md={6} lg={4} className="d-flex align-items-stretch">
-          <Card className="glass-card">
-            <Card.Img variant="top" src="https://play-lh.googleusercontent.com/a4Xrc-8oQLu05mOrNPuvA_o2nZEIEnOoTH4wB91Slw_hCvuIu_Qgi440bK9mC8ml-KA=w600-h300-pc0xffffff-pd" />
-            <Card.Body>
-              <Card.Title>Data Structures & Algorithms: Mastering the Basics</Card.Title>
-              <Card.Text varient="left">Duration : 3 Months</Card.Text>
-              <Card.Text varient="left"> Topics : 10 chapters</Card.Text>
-              {/* <Card.Text varient="left">Intermediate</Card.Text> */}
-              <Link to="/CourseC">
-              <center><Button  className="enroll">View</Button></center>
-              </Link>
-              </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-<br/>
+
 
 <Container className="resources-container my-5">
   <Row className="mb-4">

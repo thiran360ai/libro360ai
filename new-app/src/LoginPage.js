@@ -16,7 +16,7 @@ const LoginPage = ({ setIsLoggedIn, setUsername, setUserRole }) => {
     setSuccess('');
 
     try {
-      const response = await axios.post('https://5aca-59-97-51-97.ngrok-free.app/api/quiz/users/login/', {
+      const response = await axios.post('https://9823-59-97-51-97.ngrok-free.app/api/quiz/users/login/', {
         username,
         password,
       });
@@ -33,7 +33,7 @@ const LoginPage = ({ setIsLoggedIn, setUsername, setUserRole }) => {
       localStorage.setItem('username', username);
       localStorage.setItem('role', role); // Save role in localStorage
 
-      navigate('/');
+      navigate('/libro360/Dashboard');
     } catch (error) {
       console.log(error.response || error); // Log the error details
       setError('Invalid username or password. Please try again.');
@@ -71,7 +71,7 @@ const LoginPage = ({ setIsLoggedIn, setUsername, setUserRole }) => {
         </form>
         <div className="signup-link">
           <span>Don't have an account?</span>
-          <button className="signup-btn" onClick={() => navigate('/SignUp')}>
+          <button className="signup-btn" onClick={() => navigate('/libro360/SignUp')}>
             Sign Up
           </button>
         </div>

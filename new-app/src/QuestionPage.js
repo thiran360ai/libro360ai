@@ -13,8 +13,8 @@ const QuestionPage = () => {
     const [expectedOutput, setExpectedOutput] = useState('');
     const [result, setResult] = useState('');
     const [error, setError] = useState(null);
-    const [languages, setLanguages] = useState([]);  // To store languages fetched from API
-    const [selectedLanguage, setSelectedLanguage] = useState('');  // Store selected language
+    const [languages, setLanguages] = useState([]);
+    const [selectedLanguage, setSelectedLanguage] = useState('');
     const [passedCases, setPassedCases] = useState(0);
     const [totalCases, setTotalCases] = useState(0);
     const [isEditorLocked, setIsEditorLocked] = useState(false);
@@ -22,26 +22,43 @@ const QuestionPage = () => {
     const [showInputOutput, setShowInputOutput] = useState(false);
     const [showTestCases, setShowTestCases] = useState(false);
     const [isRunClicked, setIsRunClicked] = useState(false);
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true); 
 
-    // Fetch languages dynamically from API on component mount
+    // Fetch user ID from localStorage
+    const userId = localStorage.getItem('user_id');
+
+    useEffect(() => {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        }
+    }, []);
+
     useEffect(() => {
         const fetchLanguages = async () => {
             try {
-                const response = await axios.get('https://5aca-59-97-51-97.ngrok-free.app/compiler/languages/');
-                console.log('Languages response:', response.data);
-                if (response.status === 200 && Array.isArray(response.data)) {
-                    setLanguages(response.data);
+                const response = await axios.get('https://9823-59-97-51-97.ngrok-free.app/compiler/languages/', {
+                    headers: {
+                      Accept: 'application/json',
+                      'ngrok-skip-browser-warning': '98547',
+                    },
+                  });
+                
+                if (response.status === 200) {
+                    if (Array.isArray(response.data)) {
+                        setLanguages(response.data);
+                    } else {
+                        setError('Unexpected data format.');
+                    }
                 } else {
                     setError('Failed to fetch languages.');
                 }
             } catch (err) {
-                console.error('Error fetching languages:', err);
                 setError('Error fetching languages.');
             }
         };
-
+    
         fetchLanguages();
-    }, []);
+    }, []);   
 
     const handleLanguageChange = (lang) => {
         setSelectedLanguage(lang);
@@ -77,24 +94,21 @@ int main() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsRunClicked(true);  // Set run button clicked to true
+        setIsRunClicked(true);
 
         const requestData = {
             source_code: sourceCode,
             language: selectedLanguage,
             expected_output: expectedOutput,
             question_id: location.state.question.id,
+            user_id: 1,  // Add user ID here
         };
-
-        console.log('Request Data:', requestData);
 
         try {
             const response = await axios.post(
-                'https://5aca-59-97-51-97.ngrok-free.app/compiler/run-test/',
+                'https://9823-59-97-51-97.ngrok-free.app/compiler/run-test/',
                 requestData
             );
-
-            console.log('Submission response:', response.data);
 
             if (response.data.passed_cases !== undefined && response.data.total_cases !== undefined) {
                 setPassedCases(response.data.passed_cases);
@@ -112,7 +126,6 @@ int main() {
                 setResult('Answer wrong');
             }
         } catch (err) {
-            console.error('Submission error:', err.response ? err.response.data : err.message);
             setError('Error submitting the answer. Please try again.');
         }
     };
@@ -124,25 +137,23 @@ int main() {
             stdin: stdin,
         };
 
-        console.log('Request Data for Compile:', requestData);
-
         try {
             const compileResponse = await axios.post(
-                'https://5aca-59-97-51-97.ngrok-free.app/compiler/compile/',
+                'https://9823-59-97-51-97.ngrok-free.app/compiler/compile/',
                 requestData
             );
 
-            console.log('Compile response:', compileResponse.data);
-
             if (compileResponse.data.error) {
                 setOutput(compileResponse.data.error);
+                setIsSubmitDisabled(true); // Disable submit if there's an error
                 return;
             }
 
             setOutput(compileResponse.data.output || 'Compiled successfully!');
+            setIsSubmitDisabled(false); // Enable submit if output is generated
         } catch (err) {
-            console.error('Compile error:', err.response ? err.response.data : err.message);
             setError('Error compiling the code. Please try again.');
+            setIsSubmitDisabled(true); // Disable submit in case of compile error
         }
     };
 
@@ -183,6 +194,7 @@ int main() {
                                 )}
                             </Dropdown.Menu>
                         </Dropdown>
+
                         <Button variant="success" onClick={handleSubmit}>
                             Run
                         </Button>
@@ -205,6 +217,38 @@ int main() {
                             padding: { top: 0, bottom: 0 },
                         }}
                     />
+
+                    {/* Display Results */}
+                    {totalCases > 0 && (
+                        <div className="result mt-4">
+                            {Array.from({ length: totalCases }, (_, index) => {
+                                const isPassed = index < passedCases;
+                                return (
+                                    <Button
+                                        key={index}
+                                        variant={isPassed ? 'success' : 'danger'}
+                                        className="m-1"
+                                    >
+                                        {isPassed ? 'Passed' : 'Failed'}
+                                    </Button>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                    {/* Only display the result message if there are no passed cases */}
+                    {totalCases === 0 && result && result !== 'Answer correct' && (
+                        <div className="result mt-4">
+                            <strong>{result}</strong>
+                        </div>
+                    )}
+
+                    {/* Display the error message only if there are test cases run */}
+                    {totalCases > 0 && error && (
+                        <Alert variant="danger" className="mt-4">
+                            <strong>{error}</strong>
+                        </Alert>
+                    )}
                 </Col>
 
                 {showInputOutput && (
@@ -264,33 +308,9 @@ int main() {
                         </Form.Group>
                     </Col>
                 )}
-
-                {showTestCases && totalCases > 0 && (
-                    <Col md={3} className="input-output-column">
-                        <div className="mt-5">
-                            <center><h4><b>Test Case</b></h4></center>
-                            {Array.from({ length: totalCases }, (_, index) => {
-                                const isPassed = index < passedCases;
-                                return (
-                                    <Button
-                                        key={index}
-                                        variant={isPassed ? 'info' : 'danger'}
-                                        className="mb-2"
-                                        disabled
-                                        block
-                                    >
-                                        {isPassed ? `Test Case ${index + 1} Passed` : `Test Case ${index + 1} Failed`}
-                                    </Button>
-                                );
-                            })}
-                        </div>
-                    </Col>
-                )}
             </Row>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {result && <Alert variant={result === 'Answer correct' ? 'success' : 'danger'}>{result}</Alert>}
         </Container>
     );
 };
 
-export default QuestionPage;
+export default QuestionPage;

@@ -4,25 +4,46 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import './McqTestPage.css';
+import axios from 'axios';
 
 const McqTestPage = () => {
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timer, setTimer] = useState(300); // 5 minutes in seconds
-  const [showResult, setShowResult] = useState(false);
-  const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
+  const [timer, setTimer] = useState(1500); // 25 minutes in seconds
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [confirmSubmitModal, setConfirmSubmitModal] = useState(false);
   const [totalQuestions, setTotalQuestions] = useState(0);
-  const [selectedCorrectAnswersCount, setSelectedCorrectAnswersCount] = useState(0);
-  const [resultDetails, setResultDetails] = useState([]);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   const questionRefs = useRef([]);
+  const totalAnswered = Object.keys(selectedAnswers).length;
+
+  const fetchUserIdByUsername = async (username) => {
+    try {
+      const response = await axios.get(
+        'https://9823-59-97-51-97.ngrok-free.app/api/quiz/users/create/user/',
+        {
+          headers: {
+            Accept: 'application/json',
+            'ngrok-skip-browser-warning': '98547',
+          },
+        }
+      );
+      const userData = response.data.find((user) => user.username === username);
+      if (userData) {
+        setUserId(userData.id);
+      }
+    } catch (err) {
+      console.error('Error fetching user data.');
+    }
+  };
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('https://5aca-59-97-51-97.ngrok-free.app/api/quiz/test/mcq/', {
+        const response = await fetch('https://9823-59-97-51-97.ngrok-free.app/api/quiz/test/mcq/', {
           headers: {
             Accept: 'application/json',
             'ngrok-skip-browser-warning': '98547',
@@ -40,6 +61,11 @@ const McqTestPage = () => {
         console.error('Error fetching MCQ data:', error);
       }
     };
+
+    const username = localStorage.getItem('username');
+    if (username) {
+      fetchUserIdByUsername(username);
+    }
 
     fetchQuestions();
 
@@ -64,8 +90,14 @@ const McqTestPage = () => {
   };
 
   const handleSubmit = async () => {
+    setConfirmSubmitModal(false);
+    if (userId === null) {
+      console.error('User ID is not set.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://192.168.1.36/api/quiz/check_answer/', {
+      const response = await fetch('https://9823-59-97-51-97.ngrok-free.app/api/quiz/check_answer/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -73,43 +105,24 @@ const McqTestPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          user_id: userId,
           answers: selectedAnswers,
         }),
       });
+
       const result = await response.json();
-
-      const correctCount = result.correctCount || 0;
-      setCorrectAnswersCount(correctCount);
-
-      const selectedCorrectCount = questions.reduce((count, question) => {
-        const selectedOption = question.options.find(
-          (option) => option.id === selectedAnswers[question.question.id]
-        );
-        const correctOption = question.options.find((option) => option.is_correct);
-
-        if (selectedOption && correctOption && selectedOption.id === correctOption.id) {
-          return count + 1;
-        }
-        return count;
-      }, 0);
-      setSelectedCorrectAnswersCount(selectedCorrectCount);
-
-      setResultDetails(result.details || []);
-      setShowResult(true);
+      setShowResultModal(true);
     } catch (error) {
-      console.error('Error verifying answers:', error);
+      console.error('Error submitting answers:', error);
     }
-  };
-
-  const handleClose = () => {
-    setShowResult(false);
-    navigate('/Test');
   };
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
       questionRefs.current[currentQuestionIndex + 1]?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setConfirmSubmitModal(true);
     }
   };
 
@@ -120,110 +133,123 @@ const McqTestPage = () => {
     }
   };
 
-  const handleNavClick = (index) => {
-    setCurrentQuestionIndex(index);
-    questionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const handleNavClick = (index) => {
+    setCurrentQuestionIndex(index);
+    questionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <Container className="mcq-container glass-morphism-container">
-      <div className="timer-nav">
-        <div className="timer">
-          <FontAwesomeIcon icon={faStopwatch} className="icon" />
-          <span className="time">{formatTime(timer)}</span>
-        </div>
-        <div className="question-nav-container">
-          {questions.map((_, index) => (
-            <div
-              key={index}
-              className={`question-nav-item ${selectedAnswers[questions[index].question.id] ? 'answered' : 'unanswered'} ${currentQuestionIndex === index ? 'current' : ''}`}
-              onClick={() => handleNavClick(index)}
-            >
-              {index + 1}
-            </div>
-          ))}
-        </div>
-      </div>
+    <Container className="mcq-container">
+      <Row>
+        <Col md={9} className="mcq-test-column">
+          <div className="timer">
+            <FontAwesomeIcon icon={faStopwatch} className="icon" />
+            <span className="time">{formatTime(timer)}</span>
+          </div>
 
-      <Row className="justify-content-center">
-        <Col md={8}>
-          <div className="question-card sticky-card">
-            {questions.length > 0 && (
-              questions.map((question, index) => (
-                <div
-                  key={question.question.id}
-                  className="question-card-content"
-                  ref={(el) => (questionRefs.current[index] = el)}
-                  style={{ display: index === currentQuestionIndex ? 'block' : 'none' }}
-                >
-                  <div className="question-text">
-                    <Form.Label className="questions-font">
-                      {index + 1} : {question.question.text}
-                    </Form.Label>
+          {questions.length > 0 && (
+            <div className="question-card" ref={(el) => (questionRefs.current[currentQuestionIndex] = el)}>
+              <div className="question-text">
+                {currentQuestionIndex + 1}: {questions[currentQuestionIndex].question.text}
+              </div>
+
+              <Form>
+                {questions[currentQuestionIndex].options.map((option) => (
+                  <div
+                    key={option.id}
+                    className={`option-card ${
+                      selectedAnswers[questions[currentQuestionIndex].question.id] === option.id
+                        ? 'selected-option'
+                        : ''
+                    }`}
+                    onClick={() => handleOptionChange(questions[currentQuestionIndex].question.id, option.id)}
+                  >
+                    <Form.Check
+                      type="radio"
+                      id={`${questions[currentQuestionIndex].question.id}-${option.id}`}
+                      name={`question-${questions[currentQuestionIndex].question.id}`}
+                      value={option.id}
+                      checked={selectedAnswers[questions[currentQuestionIndex].question.id] === option.id}
+                      onChange={() => handleOptionChange(questions[currentQuestionIndex].question.id, option.id)}
+                      inline
+                    />
+                    <label htmlFor={`${questions[currentQuestionIndex].question.id}-${option.id}`}>
+                      {option.value}
+                    </label>
                   </div>
-
-                  <Form>
-                    {question.options.map((option) => (
-                      <div
-                        key={option.id}
-                        className={`option-card ${selectedAnswers[question.question.id] === option.id ? 'selected-option' : ''}`}
-                        onClick={() => handleOptionChange(question.question.id, option.id)}
-                      >
-                        <Form.Check
-                          type="radio"
-                          id={`${question.question.id}-${option.id}`}
-                          name={`question-${question.question.id}`}
-                          value={option.id}
-                          checked={selectedAnswers[question.question.id] === option.id}
-                          onChange={() => handleOptionChange(question.question.id, option.id)}
-                          inline
-                        />
-                        <label htmlFor={`${question.question.id}-${option.id}`} className="option-label">
-                          {option.value}
-                        </label>
-                      </div>
-                    ))}
-                  </Form>
-                </div>
-              ))
-            )}
-
-            <div className="navigation-buttons">
-              {currentQuestionIndex > 0 && (
-                <div className="nav-text nav-prev" onClick={handlePrev}>
-                  <FontAwesomeIcon icon={faChevronLeft} /> Previous
-                </div>
-              )}
-              {currentQuestionIndex < questions.length - 1 ? (
-                <div className="nav-text nav-next" onClick={handleNext}>
-                  Next <FontAwesomeIcon icon={faChevronRight} />
-                </div>
-              ) : (
-                <div className="nav-text nav-submit" onClick={handleSubmit}>
-                  Submit
-                </div>
-              )}
+                ))}
+              </Form>
             </div>
+          )}
+
+          <div className="navigation-buttons">
+            {currentQuestionIndex > 0 && (
+              <Button className="prev-btn" onClick={handlePrev}>
+                <FontAwesomeIcon icon={faChevronLeft} /> Previous
+              </Button>
+            )}
+            <Button className="next-btn" onClick={handleNext}>
+              {currentQuestionIndex < questions.length - 1 ? (
+                <>
+                  Next <FontAwesomeIcon icon={faChevronRight} />
+                </>
+              ) : (
+                'Submit'
+              )}
+            </Button>
+          </div>
+        </Col>
+
+        <Col md={3} className="question-nav-column">
+          <div className="question-nav">
+            {questions.map((_, index) => (
+              <div
+                key={index}
+                className={`question-nav-item ${
+                  selectedAnswers[questions[index].question.id] ? 'answered' : 'unanswered'
+                } ${currentQuestionIndex === index ? 'current' : ''}`}
+                onClick={() => handleNavClick(index)}
+              >
+                {index + 1}
+              </div>
+            ))}
           </div>
         </Col>
       </Row>
 
-      <Modal show={showResult} onHide={handleClose}>
+      {/* Confirm Submit Modal */}
+      <Modal show={confirmSubmitModal} onHide={() => setConfirmSubmitModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Test Results</Modal.Title>
+          <Modal.Title>Confirm Submission</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>You scored {selectedCorrectAnswersCount} out of {totalQuestions}</p>
+          You have attended {totalAnswered} out of {totalQuestions} questions. Are you sure you want to submit?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="secondary" onClick={() => setConfirmSubmitModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Sure
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Show Results Modal */}
+      <Modal show={showResultModal} onHide={() => navigate('/libro360/Test')}>
+        <Modal.Header closeButton>
+          <Modal.Title>Quiz Results</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your results have been submitted successfully.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={() => navigate('/libro360/Test')}>
+            Go to Test
           </Button>
         </Modal.Footer>
       </Modal>

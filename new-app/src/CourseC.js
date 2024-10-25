@@ -14,7 +14,7 @@ const CourseJava = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await fetch('https://5aca-59-97-51-97.ngrok-free.app/compiler/content/');
+        const response = await fetch('https://9823-59-97-51-97.ngrok-free.app/compiler/content/');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -36,7 +36,7 @@ const CourseJava = () => {
   
     const fetchLanguages = async () => {
       try {
-        const response = await fetch('https://5aca-59-97-51-97.ngrok-free.app/compiler/languages/');
+        const response = await fetch('https://9823-59-97-51-97.ngrok-free.app/compiler/languages/');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -94,11 +94,11 @@ const CourseJava = () => {
       return;
     }
     if (language.toLowerCase() === 'python') {
-      navigate('/python'); // Navigate to Python course
+      navigate('/libro360/python'); // Navigate to Python course
     } else if (language.toLowerCase() === 'c') {
-      navigate('/c'); // Navigate to C course
+      navigate('/libro360/c'); // Navigate to C course
     } else if (language.toLowerCase() === 'java') {
-      navigate('/java'); // Navigate to Java course if not on the same page
+      navigate('/libro360/java'); // Navigate to Java course if not on the same page
     }
   };
 
@@ -106,7 +106,7 @@ const CourseJava = () => {
     <div className="course-container">
       {/* Header Navigation */}
       <div className="header">
-        <button className="nav-button" onClick={() => navigate('/')}>Home</button>
+        <button className="nav-button" onClick={() => navigate('/libro360/')}>Home</button>
 
         {/* Dynamically render language buttons */}
         {languages.length > 0 ? (

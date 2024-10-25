@@ -8,7 +8,7 @@ const SignUp = ({ setIsLoggedIn, setUsername }) => {
     email: '',
     password: '',
     role: 'Student',
-    location: ''
+    college: ''
   });
   
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +24,7 @@ const SignUp = ({ setIsLoggedIn, setUsername }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://5aca-59-97-51-97.ngrok-free.app/api/quiz/users/create/user/', {
+      const response = await fetch('https://9823-59-97-51-97.ngrok-free.app/api/quiz/users/create/user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const SignUp = ({ setIsLoggedIn, setUsername }) => {
       setUsername(formData.username);
 
       // Redirect to home
-      navigate('/');
+      navigate('/libro360/Dashboard');
     } catch (error) {
       console.error('Error during registration:', error);
       alert('Registration failed. Please try again.');
@@ -94,16 +94,16 @@ const SignUp = ({ setIsLoggedIn, setUsername }) => {
         <div className="input-container">
           <input
             type="text"
-            name="location"
-            value={formData.location}
+            name="college"
+            value={formData.college}
             onChange={handleChange}
-            placeholder="Location"
+            placeholder="College"
             required
           />
         </div>
         <div className="input-container">
           <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="member">Member</option>
+            <option value="Student">Student</option>
             <option value="admin">Admin</option>
           </select>
         </div><br></br>
@@ -114,7 +114,7 @@ const SignUp = ({ setIsLoggedIn, setUsername }) => {
         </div>
         <div className="login-link">
           <span>Already have an account? </span>
-          <button type="button" className="login-btn" onClick={() => navigate('/LoginPage')}>
+          <button type="button" className="login-btn" onClick={() => navigate('/libro360/LoginPage')}>
             Login
           </button>
         </div>
